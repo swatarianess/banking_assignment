@@ -1,34 +1,34 @@
 package com.steve.banking_assignment.beans;
 
-import org.springframework.stereotype.Component;
-
 import java.sql.Timestamp;
 
-@Component
 public class Transaction {
 
-    String id;
-    String fromCustomer;
-    int amount;
-    String toCustomer;
+    static long id = 0;
+    long transactionID;
+    long senderCustomerID;
+    long amount;
+    long recipientCustomerID;
     Timestamp timestamp;
 
-    public Transaction(String id, String fromCustomer, String toCustomer, Timestamp timestamp) {
-        this.id = id;
-        this.fromCustomer = fromCustomer;
-        this.toCustomer = toCustomer;
+    public Transaction(long senderCustomerID, long recipientCustomerID, long amount, Timestamp timestamp) {
+        id++;
+        this.transactionID = id;
+        this.senderCustomerID = senderCustomerID;
+        this.recipientCustomerID = recipientCustomerID;
+        this.amount = amount;
         this.timestamp = timestamp;
     }
 
-    public String getId() {
-        return id;
+    public long getId() {
+        return transactionID;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(long id) {
+        this.transactionID = id;
     }
 
-    public int getAmount() {
+    public long getAmount() {
         return amount;
     }
 
@@ -36,20 +36,20 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public String getFromCustomer() {
-        return fromCustomer;
+    public long getSenderCustomerID() {
+        return senderCustomerID;
     }
 
-    public void setFromCustomer(String fromCustomer) {
-        this.fromCustomer = fromCustomer;
+    public void setSenderCustomerID(long senderCustomerID) {
+        this.senderCustomerID = senderCustomerID;
     }
 
-    public String getToCustomer() {
-        return toCustomer;
+    public long getRecipientCustomerID() {
+        return recipientCustomerID;
     }
 
-    public void setToCustomer(String toCustomer) {
-        this.toCustomer = toCustomer;
+    public void setRecipientCustomerID(long recipientCustomerID) {
+        this.recipientCustomerID = recipientCustomerID;
     }
 
     public Timestamp getTimestamp() {
@@ -58,5 +58,20 @@ public class Transaction {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Transaction)) return false;
+
+        Transaction that = (Transaction) o;
+
+        return transactionID == that.transactionID;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (transactionID ^ (transactionID >>> 32));
     }
 }

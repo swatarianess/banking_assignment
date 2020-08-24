@@ -1,12 +1,8 @@
-import org.springframework.cloud.contract.verifier.config.TestFramework
-
 buildscript {
     repositories {
         mavenCentral()
     }
-    dependencies {
-        classpath 'org.springframework.cloud:spring-cloud-contract-gradle-plugin:2.2.4.RELEASE'
-    }
+
 }
 
 plugins {
@@ -16,7 +12,6 @@ plugins {
     id 'java'
 }
 
-apply plugin: 'spring-cloud-contract'
 
 group = 'com.steve'
 version = '0.0.1-SNAPSHOT'
@@ -32,10 +27,14 @@ ext {
 }
 
 dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
@@ -46,11 +45,6 @@ dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
     }
-}
-
-contracts {
-    //noinspection GrDeprecatedAPIUsage
-    targetFramework = TestFramework.JUNIT5
 }
 
 test {

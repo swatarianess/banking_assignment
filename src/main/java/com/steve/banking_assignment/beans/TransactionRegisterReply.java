@@ -2,28 +2,37 @@ package com.steve.banking_assignment.beans;
 
 import java.sql.Timestamp;
 
-public class CustomerRegistrationReply {
+public class TransactionRegisterReply {
 
-    String name;
-    String surname;
+    long transactionID;
+    long recipientCustomerID;
+    long senderCustomerID;
     long customerID;
     String registrationStatus;
     Timestamp timestamp;
 
-    public String getName() {
-        return name;
+    public long getTransactionID() {
+        return transactionID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTransactionID(long transactionID) {
+        this.transactionID = transactionID;
     }
 
-    public String getSurname() {
-        return surname;
+    public long getRecipientCustomerID() {
+        return recipientCustomerID;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setRecipientCustomerID(long recipientCustomerID) {
+        this.recipientCustomerID = recipientCustomerID;
+    }
+
+    public long getSenderCustomerID() {
+        return senderCustomerID;
+    }
+
+    public void setSenderCustomerID(long senderCustomerID) {
+        this.senderCustomerID = senderCustomerID;
     }
 
     public long getCustomerID() {
@@ -49,6 +58,4 @@ public class CustomerRegistrationReply {
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
-
-
 }

@@ -10,8 +10,5 @@ public class BankingAssignmentApplication {
         SpringApplication.run(BankingAssignmentApplication.class, args);
     }
 
-    public void createCustomer(int initialValue){
-
-    }
 
 }
