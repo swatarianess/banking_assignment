@@ -6,47 +6,46 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Customer {
+public class Account {
 
-    private static Long id = 0L;
     private Long customerID = 0L;
     private String name = "";
     private String surname = "";
     private int balance = 0;
     private List<Transaction> transactionList = new ArrayList<>();
 
-    public Customer() {
-    }
+    public Account() { }
 
-    public Customer(String name, String surname) {
-        id += 1;
-        this.customerID = id;
-        this.name = name;
-        this.surname = surname;
-        this.balance = 0;
-        this.transactionList.add(new Transaction( -1, customerID, 0, Timestamp.from(Instant.now())));
-    }
-
-    public Customer(String name, int balance) {
-        id += 1;
-        this.customerID = id;
+    public Account(long customerID, String name, int balance) {
+        this.customerID = customerID;
         this.name = name;
         this.surname = "";
         this.balance = balance;
         this.transactionList.add(new Transaction( -1, customerID, balance, Timestamp.from(Instant.now())));
     }
 
-    public Customer(String name, String surname, int balance) {
-        id += 1;
-        this.customerID = id;
+    public Account(long customerID, String name, String surname) {
+        this.customerID = customerID;
+        this.name = name;
+        this.surname = surname;
+        this.balance = 0;
+        this.transactionList.add(new Transaction( -1, customerID, 0, Timestamp.from(Instant.now())));
+    }
+
+    public Account(long customerID, String name, String surname, int balance) {
+        this.customerID = customerID;
         this.name = name;
         this.surname = surname;
         this.balance = balance;
         this.transactionList.add(new Transaction( -1, customerID, balance, Timestamp.from(Instant.now())));
     }
 
-    public long getId() {
+    public long getCustomerID() {
         return customerID;
+    }
+
+    public void setCustomerID(Long customerID) {
+        this.customerID = customerID;
     }
 
     public String getName() {
@@ -68,11 +67,11 @@ public class Customer {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Customer)) return false;
+        if (!(o instanceof Account)) return false;
 
-        Customer customer = (Customer) o;
+        Account account = (Account) o;
 
-        return this.customerID.equals(customer.customerID);
+        return this.customerID.equals(account.customerID);
     }
 
     @Override
@@ -86,7 +85,6 @@ public class Customer {
                 "id=" + customerID +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", transactionList#Size='" + transactionList.size() + '\'' +
                 ", balance=" + balance +
                 '}';
     }

@@ -1,6 +1,6 @@
 package com.steve.banking_assignment;
 
-import com.steve.banking_assignment.controllers.CustomerRegistrationController;
+import com.steve.banking_assignment.controllers.AccountRegistrationController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +21,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CustomerRegistrationControllerTest {
+public class AccountRegistrationControllerTest {
 
     MediaType MEDIA_TYPE_JSON_UTF8 = new MediaType("application", "json", StandardCharsets.UTF_8);
-    String exampleUserOne = "{\"name\" : \"steve\", \"surname\" : \"adu\"}";
-    String exampleUserTwo = "{\"name\" : \"bob\", \"balance\":1000}";
+    String exampleUserOne = "{\"customerID\": 111,  \"name\": \"steve\", \"surname\": \"adu\"}";
+    String exampleUserTwo = "{\"customerID\": 222,  \"name\": \"bob\", \"surname\": \"bob\", \"balance\": 1000}} ";
 
     @Autowired
     protected MockMvc mockMvc;
 
-    @Autowired
-    CustomerRegistrationController controller;
+   @Autowired
+   AccountRegistrationController controller;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -42,8 +42,8 @@ public class CustomerRegistrationControllerTest {
     }
 
     @Test
-    public void customerTestDefaultCredit() throws Exception {
-        mockMvc.perform(post("/customer/register")
+    public void accountTestDefaultCredit() throws Exception {
+        mockMvc.perform(post("/account/register")
                 .content(exampleUserOne)
                 .accept(MEDIA_TYPE_JSON_UTF8)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -51,10 +51,11 @@ public class CustomerRegistrationControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MEDIA_TYPE_JSON_UTF8))
                 .andExpect(jsonPath("$.name").value("steve"))
+                .andExpect(jsonPath("$.customerID").value(111))
                 .andExpect(jsonPath("$.registrationStatus").value("Success"))
         ;
 
-        mockMvc.perform(get("/customer/0"))
+        mockMvc.perform(get("/account/111"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("steve"))
@@ -64,8 +65,8 @@ public class CustomerRegistrationControllerTest {
     }
 
     @Test
-    void customerTestCustomInitialCredit() throws Exception {
-        mockMvc.perform(post("/customer/register")
+    void accountTestCustomInitialCredit() throws Exception {
+        mockMvc.perform(post("/account/register")
                 .content(exampleUserTwo)
                 .accept(MEDIA_TYPE_JSON_UTF8)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -75,7 +76,7 @@ public class CustomerRegistrationControllerTest {
                 .andExpect(jsonPath("$.registrationStatus").value("Success"))
         ;
 
-        mockMvc.perform(get("/customer/1"))
+        mockMvc.perform(get("/account/222"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("bob"))
                 .andExpect(jsonPath("$.balance").value(1000))
