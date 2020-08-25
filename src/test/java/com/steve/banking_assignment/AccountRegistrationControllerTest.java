@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AccountRegistrationControllerTest {
+class AccountRegistrationControllerTest {
 
     MediaType MEDIA_TYPE_JSON_UTF8 = new MediaType("application", "json", StandardCharsets.UTF_8);
     String exampleUserOne = "{\"customerID\": 111,  \"name\": \"steve\", \"surname\": \"adu\"}";
@@ -39,7 +39,7 @@ public class AccountRegistrationControllerTest {
     }
 
     @Test
-    public void accountTestDefaultCredit() throws Exception {
+    void accountTestDefaultCredit() throws Exception {
         mockMvc.perform(post("/account/register")
                 .content(exampleUserOne)
                 .accept(MEDIA_TYPE_JSON_UTF8)

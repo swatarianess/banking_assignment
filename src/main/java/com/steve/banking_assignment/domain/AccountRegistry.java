@@ -9,7 +9,7 @@ import java.util.Set;
 public class AccountRegistry {
 
     private final Set<Account> accounts = new HashSet<>();
-    private static AccountRegistry accountRegistry = null;
+    private static AccountRegistry accountRegistry;
 
     private AccountRegistry() {
         accountRegistry = this;

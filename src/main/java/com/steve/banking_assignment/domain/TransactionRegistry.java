@@ -6,7 +6,7 @@ import java.util.List;
 public class TransactionRegistry {
 
     private final ArrayList<Transaction> transactions = new ArrayList<>();
-    private static TransactionRegistry transactionRegistry = null;
+    private static TransactionRegistry transactionRegistry;
 
     private TransactionRegistry() {
         transactionRegistry = this;

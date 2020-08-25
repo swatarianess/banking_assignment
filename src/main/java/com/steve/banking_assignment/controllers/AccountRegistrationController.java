@@ -26,7 +26,6 @@ public class AccountRegistrationController {
         AccountRegistrationReply accountRegistrationReply = new AccountRegistrationReply();
 
         if(AccountRegistry.getInstance().add(account)) {
-            logger.info("Account details: " + account.toString());
             accountRegistrationReply.setCustomerID(account.getCustomerID());
             accountRegistrationReply.setName(account.getName());
             accountRegistrationReply.setSurname(account.getSurname());
@@ -36,7 +35,7 @@ public class AccountRegistrationController {
             return new ResponseEntity<>(accountRegistrationReply, HttpStatus.OK);
         } else {
             logger.info("Could not create an account.");
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(accountRegistrationReply, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

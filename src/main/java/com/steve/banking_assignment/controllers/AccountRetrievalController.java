@@ -1,7 +1,6 @@
 package com.steve.banking_assignment.controllers;
 
 import com.steve.banking_assignment.domain.Account;
-import com.steve.banking_assignment.domain.AccountRegistry;
 import com.steve.banking_assignment.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,13 +23,12 @@ public class AccountRetrievalController {
 
     @GetMapping(value = "/account/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Account>> getAllAccounts() {
-        logger.info("Retrieving Customer data: " + AccountRegistry.getInstance().getAccountRecords().toString());
-        return new ResponseEntity<>(AccountRegistry.getInstance().getAccountRecords(), HttpStatus.OK);
+        return new ResponseEntity<>(accountService.findAllAccounts(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/account/{userID}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Account> getAccountFromUserId(@PathVariable long userID) {
-        return new ResponseEntity<>(AccountRegistry.getInstance().getAccountRecords().stream().filter(customer -> customer.getCustomerID() == userID).findAny().get(), HttpStatus.OK);
+        return new ResponseEntity<>(accountService.findAccountByID(userID).orElse(null), HttpStatus.OK);
     }
 
 }

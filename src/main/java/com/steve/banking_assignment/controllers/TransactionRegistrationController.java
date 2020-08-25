@@ -6,7 +6,9 @@ import com.steve.banking_assignment.domain.TransactionRegistry;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -30,7 +32,7 @@ public class TransactionRegistrationController {
             return new ResponseEntity<>(transactionRegisterReply, HttpStatus.OK);
 
         } else {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>( transactionRegisterReply, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

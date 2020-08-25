@@ -19,19 +19,16 @@ public class TransactionRetrievalController {
 
     @GetMapping("/transaction/all")
     public ResponseEntity<List<Transaction>> getAllTransactions(){
-        logger.info("Retrieving transaction data: " + TransactionRegistry.getInstance().getTransactions().toString());
         return new ResponseEntity<>(TransactionRegistry.getInstance().getTransactions(), HttpStatus.OK);
     }
 
     @GetMapping("/transaction/{userID}")
     public ResponseEntity<List<Transaction>> getTransactionsFromUserID(@PathVariable long userID){
-        logger.info("Retrieved transaction data for userID: " + userID);
         return new ResponseEntity<>(TransactionRegistry.getInstance().getTransactions().stream().filter(transaction -> transaction.getSenderCustomerID() == userID).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping("/transaction/{transactionID}")
     public ResponseEntity<List<Transaction>> getTransactionsFromTransactionID(@PathVariable long transactionID){
-        logger.info("Retrieved transaction data for transactionID: " + transactionID);
         return new ResponseEntity<>(TransactionRegistry.getInstance().getTransactions().stream().filter(transaction -> transaction.getTransactionID() == transactionID).collect(Collectors.toList()), HttpStatus.OK);
     }
 
