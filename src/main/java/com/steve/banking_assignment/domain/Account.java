@@ -1,8 +1,6 @@
-package com.steve.banking_assignment.beans;
+package com.steve.banking_assignment.domain;
 
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +19,7 @@ public class Account {
         this.name = name;
         this.surname = "";
         this.balance = balance;
-        this.transactionList.add(new Transaction( -1, customerID, balance, Timestamp.from(Instant.now())));
+        this.transactionList.add(new Transaction( -1, customerID, balance));
     }
 
     public Account(long customerID, String name, String surname) {
@@ -29,7 +27,7 @@ public class Account {
         this.name = name;
         this.surname = surname;
         this.balance = 0;
-        this.transactionList.add(new Transaction( -1, customerID, 0, Timestamp.from(Instant.now())));
+        this.transactionList.add(new Transaction( -1, customerID, 0));
     }
 
     public Account(long customerID, String name, String surname, int balance) {
@@ -37,7 +35,7 @@ public class Account {
         this.name = name;
         this.surname = surname;
         this.balance = balance;
-        this.transactionList.add(new Transaction( -1, customerID, balance, Timestamp.from(Instant.now())));
+        this.transactionList.add(new Transaction( -1, customerID, balance));
     }
 
     public long getCustomerID() {

@@ -33,11 +33,8 @@ public class AccountRegistrationControllerTest {
    @Autowired
    AccountRegistrationController controller;
 
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-
     @BeforeEach
-    void setUp() {
+    void setUp(WebApplicationContext webApplicationContext) {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 

@@ -5,9 +5,10 @@ Example of a banking web-application using spring-boot.
 Create a new customer:
 `localhost:8083\customer\register`
 * parameters:
-  * `name` - First name of the customer
-  * `surname` - Surname of the customer
-  * `balance` - Initial opening balance of the customer
+  * `accountID` (Required) - The customerID to open with the new account
+  * `name` (Required) - First name of the customer
+  * `surname` (optional) - Surname of the customer
+  * `balance` (optional) - Initial opening balance of the customer
 
 Retrieving customer information:
 `localhost:8083\customer\{customerID}`

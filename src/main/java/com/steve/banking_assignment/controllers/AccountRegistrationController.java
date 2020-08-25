@@ -1,8 +1,8 @@
 package com.steve.banking_assignment.controllers;
 
-import com.steve.banking_assignment.beans.Account;
-import com.steve.banking_assignment.beans.AccountRegistrationReply;
-import com.steve.banking_assignment.beans.AccountRegistry;
+import com.steve.banking_assignment.domain.Account;
+import com.steve.banking_assignment.domain.AccountRegistrationReply;
+import com.steve.banking_assignment.domain.AccountRegistry;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +21,9 @@ public class AccountRegistrationController {
      * Opens a new account.
     * @param account The details for the new account
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/account/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/account/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AccountRegistrationReply> registerAccount(@RequestBody Account account) {
         AccountRegistrationReply accountRegistrationReply = new AccountRegistrationReply();
-        logger.info("Trying to create new account: " + account);
 
         if(AccountRegistry.getInstance().add(account)) {
             logger.info("Account details: " + account.toString());

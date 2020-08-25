@@ -1,4 +1,4 @@
-package com.steve.banking_assignment.beans;
+package com.steve.banking_assignment.domain;
 
 import lombok.Data;
 
