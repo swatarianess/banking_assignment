@@ -1,11 +1,15 @@
-package com.steve.banking_assignment.domain;
+package com.steve.banking_assignment.registry;
+
+import com.steve.banking_assignment.model.Transaction;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TransactionRegistry {
 
-    private final ArrayList<Transaction> transactions = new ArrayList<>();
+    private final Set<Transaction> transactions = new HashSet<>();
     private static TransactionRegistry transactionRegistry;
 
     private TransactionRegistry() {
@@ -17,15 +21,12 @@ public class TransactionRegistry {
         return transactionRegistry;
     }
 
-    public boolean add(Transaction transaction){
-        if (!transactions.contains(transaction)) {
-            return this.transactions.add(transaction);
-        }
-        return false;
+    public boolean add(Transaction transaction) {
+        return transactions.add(transaction);
     }
 
-    public List<Transaction> getTransactions(){
-        return transactions;
+    public List<Transaction> getTransactions() {
+        return new ArrayList<>(transactions);
     }
 
 }

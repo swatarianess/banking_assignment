@@ -1,12 +1,15 @@
 package com.steve.banking_assignment.controllers;
 
-import com.steve.banking_assignment.domain.Account;
-import com.steve.banking_assignment.domain.AccountRegistrationReply;
-import com.steve.banking_assignment.domain.AccountRegistry;
+import com.steve.banking_assignment.dto.AccountRegistrationReply;
+import com.steve.banking_assignment.model.Account;
+import com.steve.banking_assignment.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -17,20 +20,27 @@ public class AccountRegistrationController {
 
     Logger logger = Logger.getLogger(this.getClass().getSimpleName());
 
+    @Autowired
+    AccountService accountService;
+
     /**
      * Opens a new account.
-    * @param account The details for the new account
+     *
+     * @param account The details for the new account
      */
     @PostMapping(value = "/account/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AccountRegistrationReply> registerAccount(@RequestBody Account account) {
-        AccountRegistrationReply accountRegistrationReply = new AccountRegistrationReply();
+        AccountRegistrationReply accountRegistrationReply = null;
 
-        if(AccountRegistry.getInstance().add(account)) {
-            accountRegistrationReply.setCustomerID(account.getCustomerID());
-            accountRegistrationReply.setName(account.getName());
-            accountRegistrationReply.setSurname(account.getSurname());
-            accountRegistrationReply.setTimestamp(new Timestamp(Instant.now().toEpochMilli()));
-            accountRegistrationReply.setRegistrationStatus("Success");
+        if (accountService.createAccount(account)) {
+
+            accountRegistrationReply = AccountRegistrationReply.builder()
+                    .customerID(account.getCustomerID())
+                    .name(account.getName())
+                    .surname(account.getSurname())
+                    .timestamp(new Timestamp(Instant.now().toEpochMilli()))
+                    .registrationStatus("Success")
+                    .build();
 
             return new ResponseEntity<>(accountRegistrationReply, HttpStatus.OK);
         } else {

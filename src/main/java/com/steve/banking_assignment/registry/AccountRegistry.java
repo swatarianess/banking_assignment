@@ -1,10 +1,11 @@
-package com.steve.banking_assignment.domain;
+package com.steve.banking_assignment.registry;
+
+import com.steve.banking_assignment.model.Account;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 
 public class AccountRegistry {
 

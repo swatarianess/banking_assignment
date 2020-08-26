@@ -1,4 +1,4 @@
-package com.steve.banking_assignment.domain;
+package com.steve.banking_assignment.model;
 
 
 import java.util.ArrayList;
@@ -12,14 +12,14 @@ public class Account {
     private int balance = 0;
     private List<Transaction> transactionList = new ArrayList<>();
 
-    public Account() { }
+    public Account() {
+    }
 
-    public Account(long customerID, String name, int balance) {
+    public Account(long customerID, int balance) {
         this.customerID = customerID;
-        this.name = name;
+        this.name = "";
         this.surname = "";
         this.balance = balance;
-        this.transactionList.add(new Transaction( -1, customerID, balance));
     }
 
     public Account(long customerID, String name, String surname) {
@@ -27,7 +27,13 @@ public class Account {
         this.name = name;
         this.surname = surname;
         this.balance = 0;
-        this.transactionList.add(new Transaction( -1, customerID, 0));
+    }
+
+    public Account(long customerID, String name, int balance) {
+        this.customerID = customerID;
+        this.name = name;
+        this.surname = "";
+        this.balance = balance;
     }
 
     public Account(long customerID, String name, String surname, int balance) {
@@ -35,7 +41,6 @@ public class Account {
         this.name = name;
         this.surname = surname;
         this.balance = balance;
-        this.transactionList.add(new Transaction( -1, customerID, balance));
     }
 
     public long getCustomerID() {

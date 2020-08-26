@@ -1,6 +1,6 @@
 package com.steve.banking_assignment.controllers;
 
-import com.steve.banking_assignment.domain.Account;
+import com.steve.banking_assignment.model.Account;
 import com.steve.banking_assignment.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,12 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @RestController
 public class AccountRetrievalController {
-
-    Logger logger = Logger.getLogger(this.getClass().getSimpleName());
 
     @Autowired
     private AccountService accountService;

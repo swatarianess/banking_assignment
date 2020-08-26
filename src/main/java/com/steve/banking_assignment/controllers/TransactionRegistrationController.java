@@ -1,8 +1,9 @@
 package com.steve.banking_assignment.controllers;
 
-import com.steve.banking_assignment.domain.Transaction;
-import com.steve.banking_assignment.domain.TransactionRegisterReply;
-import com.steve.banking_assignment.domain.TransactionRegistry;
+import com.steve.banking_assignment.dto.TransactionRegisterReply;
+import com.steve.banking_assignment.model.Transaction;
+import com.steve.banking_assignment.service.TransactionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,18 +17,26 @@ import java.time.Instant;
 @RestController
 public class TransactionRegistrationController {
 
+    @Autowired
+    TransactionService transactionService;
+
+    /**
+     * Creates new transaction
+     * @param transaction The transaction information
+    * */
     @PostMapping(value = "/transaction/", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TransactionRegisterReply> registerTransaction(@RequestBody Transaction transaction) {
-        TransactionRegisterReply transactionRegisterReply = new TransactionRegisterReply();
+        TransactionRegisterReply transactionRegisterReply = null;
 
-        if (TransactionRegistry.getInstance().add(transaction)){
-
-            transactionRegisterReply.setTransactionID(transaction.getTransactionID());
-            transactionRegisterReply.setRecipientCustomerID(transaction.getRecipientCustomerID());
-            transactionRegisterReply.setSenderCustomerID(transaction.getSenderCustomerID());
-            transactionRegisterReply.setTimestamp(Timestamp.from(Instant.now()));
-            transactionRegisterReply.setRegistrationStatus("Success");
-            transactionRegisterReply.setAmount(transaction.getAmount());
+        if (transactionService.createTransaction(transaction)){
+            transactionRegisterReply = TransactionRegisterReply.builder()
+                    .transactionID(transaction.getTransactionID())
+                    .recipientCustomerID(transaction.getRecipientCustomerID())
+                    .senderCustomerID(transaction.getSenderCustomerID())
+                    .timestamp(Timestamp.from(Instant.now()))
+                    .registrationStatus("Success")
+                    .amount(transaction.getAmount())
+                    .build();
 
             return new ResponseEntity<>(transactionRegisterReply, HttpStatus.OK);
 

@@ -1,7 +1,8 @@
 package com.steve.banking_assignment.controllers;
 
-import com.steve.banking_assignment.domain.Transaction;
-import com.steve.banking_assignment.domain.TransactionRegistry;
+import com.steve.banking_assignment.model.Transaction;
+import com.steve.banking_assignment.service.TransactionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,27 +10,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @RestController
 public class TransactionRetrievalController {
 
-    Logger logger = Logger.getLogger(this.getClass().getSimpleName());
+    @Autowired
+    private TransactionService transactionService;
 
     @GetMapping("/transaction/all")
     public ResponseEntity<List<Transaction>> getAllTransactions(){
-        return new ResponseEntity<>(TransactionRegistry.getInstance().getTransactions(), HttpStatus.OK);
+        return new ResponseEntity<>(transactionService.findAllTransactions(), HttpStatus.OK);
     }
 
     @GetMapping("/transaction/{userID}")
     public ResponseEntity<List<Transaction>> getTransactionsFromUserID(@PathVariable long userID){
-        return new ResponseEntity<>(TransactionRegistry.getInstance().getTransactions().stream().filter(transaction -> transaction.getSenderCustomerID() == userID).collect(Collectors.toList()), HttpStatus.OK);
+        return new ResponseEntity<>(transactionService.findTransactionsByAccountID(userID), HttpStatus.OK);
     }
 
     @GetMapping("/transaction/{transactionID}")
-    public ResponseEntity<List<Transaction>> getTransactionsFromTransactionID(@PathVariable long transactionID){
-        return new ResponseEntity<>(TransactionRegistry.getInstance().getTransactions().stream().filter(transaction -> transaction.getTransactionID() == transactionID).collect(Collectors.toList()), HttpStatus.OK);
+    public ResponseEntity<Transaction> getTransactionFromTransactionID(@PathVariable long transactionID){
+        return new ResponseEntity<>(transactionService.findTransactionByTransactionID(transactionID).orElse(null), HttpStatus.OK);
     }
 
 
