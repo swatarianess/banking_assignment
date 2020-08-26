@@ -1,15 +1,16 @@
-package com.steve.banking_assignment.beans;
+package com.steve.banking_assignment.registry;
+
+import com.steve.banking_assignment.model.Account;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
 public class AccountRegistry {
 
     private final Set<Account> accounts = new HashSet<>();
-    private static AccountRegistry accountRegistry = null;
+    private static AccountRegistry accountRegistry;
 
     private AccountRegistry() {
         accountRegistry = this;

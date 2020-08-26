@@ -1,34 +1,31 @@
 package com.steve.banking_assignment.controllers;
 
-import com.steve.banking_assignment.beans.Account;
-import com.steve.banking_assignment.beans.AccountRegistry;
+import com.steve.banking_assignment.model.Account;
+import com.steve.banking_assignment.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.logging.Logger;
 
-@Controller
+@RestController
 public class AccountRetrievalController {
 
-    Logger logger = Logger.getLogger(this.getClass().getSimpleName());
+    @Autowired
+    private AccountService accountService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/account/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Account>> getAllCustomers(){
-        logger.info("Retrieving Customer data: " + AccountRegistry.getInstance().getAccountRecords().toString());
-        return new ResponseEntity<>(AccountRegistry.getInstance().getAccountRecords(),HttpStatus.OK);
+    @GetMapping(value = "/account/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Account>> getAllAccounts() {
+        return new ResponseEntity<>(accountService.findAllAccounts(), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/account/{userID}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Account> getTransactionsFromUser(@PathVariable long userID){
-        return new ResponseEntity<>(AccountRegistry.getInstance().getAccountRecords().stream().filter(customer -> customer.getCustomerID() == userID).findAny().get(), HttpStatus.OK);
+    @GetMapping(value = "/account/{userID}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Account> getAccountFromUserId(@PathVariable long userID) {
+        return new ResponseEntity<>(accountService.findAccountByID(userID).orElse(null), HttpStatus.OK);
     }
-
-
 
 }
