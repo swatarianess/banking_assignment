@@ -1,7 +1,7 @@
 package com.steve.banking_assignment.controllers;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,10 +71,10 @@ class AccountRetrievalControllerTest {
         ;
     }
 
-    @Ignore
     @Test
     @Tag("development")
     @Tag("retrieval")
+    @DisplayName("Retrieving account based on UserID")
     void getAccountFromUserId() throws Exception {
         mockMvc.perform(get("/accounts/111")
                 .accept(MEDIA_TYPE_JSON_UTF8))
@@ -88,6 +88,7 @@ class AccountRetrievalControllerTest {
     @Test
     @Tag("development")
     @Tag("registry")
+    @DisplayName("Retrieving all accounts in the Account Registry")
     void getAllAccounts() throws Exception {
         mockMvc.perform(get("/accounts/")
                 .accept(MEDIA_TYPE_JSON_UTF8))

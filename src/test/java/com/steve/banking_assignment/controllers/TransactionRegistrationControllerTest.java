@@ -1,6 +1,8 @@
 package com.steve.banking_assignment.controllers;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -39,6 +41,9 @@ class TransactionRegistrationControllerTest {
     }
 
     @Test
+    @Tag("transaction")
+    @Tag("creation")
+    @DisplayName("Creation of account with default initial credit")
     void registerTransaction() throws Exception {
 
         mockMvc.perform(post("/transactions/")
@@ -56,6 +61,8 @@ class TransactionRegistrationControllerTest {
     }
 
     @Test
+    @Tag("retrieval")
+    @DisplayName("Generating and testing all transactions are stored correctly")
     void getAllTransactions() throws Exception {
         mockMvc.perform(post("/transactions/")
                 .content(exampleTransaction)

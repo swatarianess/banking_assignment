@@ -41,9 +41,9 @@ class AccountRegistrationControllerTest {
     }
 
     @Test
-    @DisplayName("Creation of account with default initial")
     @Tag("account")
     @Tag("development")
+    @DisplayName("Creation of account with default initial credit")
     void accountTestDefaultCredit() throws Exception {
         mockMvc.perform(post("/accounts/")
                 .content(exampleUserOne)
@@ -69,6 +69,7 @@ class AccountRegistrationControllerTest {
     @Test
     @Tag("account")
     @Tag("development")
+    @DisplayName("Creation of account with custom initial credit")
     void accountTestCustomInitialCredit() throws Exception {
         mockMvc.perform(post("/accounts/")
                 .content(exampleUserTwo)
