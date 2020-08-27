@@ -1,4 +1,6 @@
-# Banking Assignment [![Build Status](https://travis-ci.com/swatarianess/banking_assignment.svg?branch=master)](https://travis-ci.com/swatarianess/banking_assignment)
+# Banking Assignment [![Build Status](https://travis-ci.com/swatarianess/banking_assignment.svg?branch=master)](https://travis-ci.com/swatarianess/banking_assignment)[![codecov](https://codecov.io/gh/swatarianess/banking_assignment/branch/master/graph/badge.svg)](https://codecov.io/gh/swatarianess/banking_assignment)[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=swatarianess_banking_assignment&metric=alert_status)](https://sonarcloud.io/dashboard?id=swatarianess_banking_assignment)
+
+
 Example of a banking web-application using spring-boot.
 
 ## How to use:
