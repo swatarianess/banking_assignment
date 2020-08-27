@@ -1,7 +1,9 @@
 package com.steve.banking_assignment.registry;
 
 import com.steve.banking_assignment.model.Account;
+import org.apache.juli.logging.LogFactory;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -30,6 +32,7 @@ public class AccountRegistry {
     }
 
     public List<Account> getAccountRecords(){
+        LogFactory.getFactory().getInstance(this.getClass().getSimpleName()).info(MessageFormat.format("Getting accounts ({0}): {1} ", accounts.size(), accounts));
         return new ArrayList<>(accounts);
     }
 

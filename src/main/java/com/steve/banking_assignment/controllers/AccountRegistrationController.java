@@ -28,12 +28,11 @@ public class AccountRegistrationController {
      *
      * @param account The details for the new account
      */
-    @PostMapping(value = "/account/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/accounts/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AccountRegistrationReply> registerAccount(@RequestBody Account account) {
-        AccountRegistrationReply accountRegistrationReply = null;
+        AccountRegistrationReply accountRegistrationReply;
 
         if (accountService.createAccount(account)) {
-
             accountRegistrationReply = AccountRegistrationReply.builder()
                     .customerID(account.getCustomerID())
                     .name(account.getName())
@@ -45,7 +44,7 @@ public class AccountRegistrationController {
             return new ResponseEntity<>(accountRegistrationReply, HttpStatus.OK);
         } else {
             logger.info("Could not create an account.");
-            return new ResponseEntity<>(accountRegistrationReply, HttpStatus.INTERNAL_SERVER_ERROR);
+            return null;
         }
     }
 

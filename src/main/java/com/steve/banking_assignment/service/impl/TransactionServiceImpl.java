@@ -1,13 +1,14 @@
 package com.steve.banking_assignment.service.impl;
 
+import com.steve.banking_assignment.exception.TransactionNotFoundException;
 import com.steve.banking_assignment.model.Account;
 import com.steve.banking_assignment.model.Transaction;
 import com.steve.banking_assignment.registry.TransactionRegistry;
 import com.steve.banking_assignment.service.TransactionService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -55,7 +56,8 @@ public class TransactionServiceImpl implements TransactionService {
      * @return Returns the {@link Transaction} matching the supplied transactionID
      */
     @Override
-    public Optional<Transaction> findTransactionByTransactionID(long transactionID) {
-        return registry.getTransactions().stream().filter(transaction -> transaction.getTransactionID() == transactionID).findFirst();
+    @ExceptionHandler(TransactionNotFoundException.class)
+    public Transaction findTransactionByTransactionID(long transactionID) {
+        return registry.getTransactions().stream().filter(transaction -> transaction.getTransactionID() == transactionID).findFirst().orElseThrow(TransactionNotFoundException::new);
     }
 }

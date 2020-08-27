@@ -17,22 +17,19 @@ public class TransactionRetrievalController {
     @Autowired
     private TransactionService transactionService;
 
-    @GetMapping("/transaction/all")
+    @GetMapping("/transactions/")
     public ResponseEntity<List<Transaction>> getAllTransactions(){
         return new ResponseEntity<>(transactionService.findAllTransactions(), HttpStatus.OK);
     }
 
-    @GetMapping("/transaction/{userID}")
+    @GetMapping("/transactions/user/{userID}")
     public ResponseEntity<List<Transaction>> getTransactionsFromUserID(@PathVariable long userID){
         return new ResponseEntity<>(transactionService.findTransactionsByAccountID(userID), HttpStatus.OK);
     }
 
-    @GetMapping("/transaction/{transactionID}")
+    @GetMapping("/transactions/{transactionID}")
     public ResponseEntity<Transaction> getTransactionFromTransactionID(@PathVariable long transactionID){
-        return new ResponseEntity<>(transactionService.findTransactionByTransactionID(transactionID).orElse(null), HttpStatus.OK);
+        return new ResponseEntity<>(transactionService.findTransactionByTransactionID(transactionID), HttpStatus.OK);
     }
-
-
-
 
 }

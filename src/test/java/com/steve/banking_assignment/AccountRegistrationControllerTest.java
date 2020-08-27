@@ -41,14 +41,14 @@ class AccountRegistrationControllerTest {
     }
 
     @Test
-    @DisplayName("Creation of account with default initial")
     @Tag("account")
     @Tag("development")
+    @DisplayName("Creation of account with default initial credit")
     void accountTestDefaultCredit() throws Exception {
-        mockMvc.perform(post("/account/register")
+        mockMvc.perform(post("/accounts/")
                 .content(exampleUserOne)
                 .accept(MEDIA_TYPE_JSON_UTF8)
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MEDIA_TYPE_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MEDIA_TYPE_JSON_UTF8))
@@ -57,7 +57,7 @@ class AccountRegistrationControllerTest {
                 .andExpect(jsonPath("$.registrationStatus").value("Success"))
         ;
 
-        mockMvc.perform(get("/account/111"))
+        mockMvc.perform(get("/accounts/111"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("steve"))
@@ -69,11 +69,12 @@ class AccountRegistrationControllerTest {
     @Test
     @Tag("account")
     @Tag("development")
+    @DisplayName("Creation of account with custom initial credit")
     void accountTestCustomInitialCredit() throws Exception {
-        mockMvc.perform(post("/account/register")
+        mockMvc.perform(post("/accounts/")
                 .content(exampleUserTwo)
                 .accept(MEDIA_TYPE_JSON_UTF8)
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MEDIA_TYPE_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MEDIA_TYPE_JSON_UTF8))
                 .andExpect(jsonPath("$.name").value("bob"))
@@ -81,7 +82,7 @@ class AccountRegistrationControllerTest {
                 .andExpect(jsonPath("$.registrationStatus").value("Success"))
         ;
 
-        mockMvc.perform(get("/account/222"))
+        mockMvc.perform(get("/accounts/222"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("bob"))
                 .andExpect(jsonPath("$.balance").value(1000))
