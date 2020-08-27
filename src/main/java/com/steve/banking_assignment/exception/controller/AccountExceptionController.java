@@ -13,7 +13,6 @@ public class AccountExceptionController {
 
     @ExceptionHandler(AccountNotFoundException.class)
     public ResponseEntity<Object> notFoundException(AccountNotFoundException exception){
-        //Todo: Have the exception parameter used in the ResponseEntity?
         return new ResponseEntity<>("Account not found!", HttpStatus.NOT_FOUND);
     }
 

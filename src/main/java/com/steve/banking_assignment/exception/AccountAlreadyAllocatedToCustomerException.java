@@ -4,5 +4,5 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 
 @ControllerAdvice
 public class AccountAlreadyAllocatedToCustomerException extends RuntimeException {
-    private final static long serialVersionUID = 6L;
+    private static final long serialVersionUID = 6L;
 }

@@ -13,7 +13,6 @@ public class TransactionExceptionController {
 
     @ExceptionHandler(TransactionNotFoundException.class)
     public ResponseEntity<Object> notFoundException(TransactionNotFoundException exception){
-        //Todo: Have the exception parameter used in the ResponseEntity?
         return new ResponseEntity<>("Transaction not found!", HttpStatus.NOT_FOUND);
     }
 

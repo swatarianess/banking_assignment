@@ -4,5 +4,5 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 
 @ControllerAdvice
 public class TransactionNotFoundException extends RuntimeException {
-    private final static long serialVersionUID = 4L;
+    private static final long serialVersionUID = 4L;
 }

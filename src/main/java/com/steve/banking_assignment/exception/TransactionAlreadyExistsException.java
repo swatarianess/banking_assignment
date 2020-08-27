@@ -4,5 +4,5 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 
 @ControllerAdvice
 public class TransactionAlreadyExistsException extends RuntimeException {
-    private final static long serialVersionUID = 3L;
+    private static final long serialVersionUID = 3L;
 }

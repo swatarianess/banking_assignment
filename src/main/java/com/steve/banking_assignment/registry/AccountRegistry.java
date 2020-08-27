@@ -32,7 +32,7 @@ public class AccountRegistry {
     }
 
     public List<Account> getAccountRecords(){
-        LogFactory.getFactory().getInstance(this.getClass().getSimpleName()).info(MessageFormat.format("Getting accounts ({0}): {1} ", accounts.size(), accounts.toString()));
+        LogFactory.getFactory().getInstance(this.getClass().getSimpleName()).info(MessageFormat.format("Getting accounts ({0}): {1} ", accounts.size(), accounts));
         return new ArrayList<>(accounts);
     }
 
