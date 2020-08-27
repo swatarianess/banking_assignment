@@ -24,7 +24,7 @@ public class TransactionRegistrationController {
      * Creates new transaction
      * @param transaction The transaction information
     * */
-    @PostMapping(value = "/transaction/", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/transactions/", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TransactionRegisterReply> registerTransaction(@RequestBody Transaction transaction) {
         TransactionRegisterReply transactionRegisterReply = null;
 
