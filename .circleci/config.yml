@@ -2,7 +2,11 @@
 #
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
-version: 2
+version: 2.1
+
+orbs:
+  codecov: codecov/codecov@1.1.1
+
 jobs:
   build:
     docker:
@@ -33,6 +37,7 @@ jobs:
 
       - run: gradle dependencies
 
+
       - save_cache:
           paths:
             - ~/.gradle
@@ -54,3 +59,7 @@ jobs:
 
       - store_artifacts:
           path: ~/test-results/junit
+
+      - codecov/upload:
+          file: 'build/reports/jacoco/test/jacocoTestReport.xml'
+          when: always

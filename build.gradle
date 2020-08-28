@@ -17,6 +17,8 @@ plugins {
 sonarqube {
     properties {
         property "sonar.projectKey", "swatarianess_banking_assignment"
+        property "sonar.organization", "swatarianess-stuff"
+        property "sonar.host.url", "https://sonarcloud.io"
     }
 }
 
