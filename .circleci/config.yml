@@ -43,4 +43,4 @@ jobs:
 
       # Store test results
       - store_test_results:
-          path: test/junit/
+          path: /reports
