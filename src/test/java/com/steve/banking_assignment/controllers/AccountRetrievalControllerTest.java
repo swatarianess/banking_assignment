@@ -18,7 +18,6 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -38,36 +37,16 @@ class AccountRetrievalControllerTest {
     void setUp(WebApplicationContext webApplicationContext) throws Exception {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
-        mockMvc.perform(get("/accounts/")
-                .accept(MEDIA_TYPE_JSON_UTF8))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MEDIA_TYPE_JSON_UTF8))
-        ;
-
-
         mockMvc.perform(post("/accounts/")
                 .content(exampleUserOne)
                 .accept(MEDIA_TYPE_JSON_UTF8)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MEDIA_TYPE_JSON_UTF8))
-                .andExpect(jsonPath("$.name").value("steve"))
-                .andExpect(jsonPath("$.customerID").value(111))
-                .andExpect(jsonPath("$.registrationStatus").value("Success"))
         ;
 
         mockMvc.perform(post("/accounts/")
                 .content(exampleUserTwo)
                 .accept(MEDIA_TYPE_JSON_UTF8)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MEDIA_TYPE_JSON_UTF8))
-                .andExpect(jsonPath("$.name").value("bob"))
-                .andExpect(jsonPath("$.customerID").value(222))
-                .andExpect(jsonPath("$.registrationStatus").value("Success"))
         ;
     }
 
@@ -78,7 +57,6 @@ class AccountRetrievalControllerTest {
     void getAccountFromUserId() throws Exception {
         mockMvc.perform(get("/accounts/111")
                 .accept(MEDIA_TYPE_JSON_UTF8))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MEDIA_TYPE_JSON_UTF8))
                 .andExpect(jsonPath("$.name").value("steve"))
@@ -92,7 +70,6 @@ class AccountRetrievalControllerTest {
     void getAllAccounts() throws Exception {
         mockMvc.perform(get("/accounts/")
                 .accept(MEDIA_TYPE_JSON_UTF8))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MEDIA_TYPE_JSON_UTF8))
                 .andExpect(jsonPath("$.*", hasSize(greaterThan(1))));

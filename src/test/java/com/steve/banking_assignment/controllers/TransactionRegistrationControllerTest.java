@@ -24,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+
 class TransactionRegistrationControllerTest {
     MediaType MEDIA_TYPE_JSON_UTF8 = new MediaType("application", "json", StandardCharsets.UTF_8);
     String exampleTransaction  = "{\"recipientCustomerID\": 1,  \"senderCustomerID\": 2, \"amount\": 100}";
