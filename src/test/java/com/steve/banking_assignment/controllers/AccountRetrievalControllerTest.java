@@ -18,6 +18,7 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -73,6 +74,20 @@ class AccountRetrievalControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MEDIA_TYPE_JSON_UTF8))
                 .andExpect(jsonPath("$.*", hasSize(greaterThan(1))));
+    }
+
+    @Test
+    @Tag("development")
+    @Tag("exception")
+    @Tag("registry")
+    @DisplayName("Should throw account does not exist when retrieving non-existent account")
+    void shouldThrowAccountNotFound() throws Exception {
+        mockMvc.perform(get("/accounts/999999999")
+                .accept(MEDIA_TYPE_JSON_UTF8))
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("Account not found!"))
+        ;
     }
 
 }

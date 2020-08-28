@@ -1,9 +1,6 @@
 package com.steve.banking_assignment.controllers;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class AccountRegistrationControllerTest {
 
     MediaType MEDIA_TYPE_JSON_UTF8 = new MediaType("application", "json", StandardCharsets.UTF_8);
@@ -40,10 +38,11 @@ class AccountRegistrationControllerTest {
     }
 
     @Test
+    @Order(1)
     @Tag("account")
     @Tag("development")
-    @DisplayName("Creation of account with default initial credit")
-    void accountTestDefaultCredit() throws Exception {
+    @DisplayName("Creation of an account with the default initial credit (Value of 0)")
+    void Should_Register_Account_With_Default_Initial_Credit() throws Exception {
         mockMvc.perform(post("/accounts/")
                 .content(exampleUserOne)
                 .accept(MEDIA_TYPE_JSON_UTF8)
@@ -66,10 +65,11 @@ class AccountRegistrationControllerTest {
     }
 
     @Test
+    @Order(2)
     @Tag("account")
     @Tag("development")
     @DisplayName("Creation of account with custom initial credit")
-    void accountTestCustomInitialCredit() throws Exception {
+    void Should_Register_Account_With_Custom_Initial_Credit() throws Exception {
         mockMvc.perform(post("/accounts/")
                 .content(exampleUserTwo)
                 .accept(MEDIA_TYPE_JSON_UTF8)
@@ -87,4 +87,24 @@ class AccountRegistrationControllerTest {
                 .andExpect(jsonPath("$.balance").value(1000))
         ;
     }
+
+    @Test
+    @Order(3)
+    @Tag("account")
+    @Tag("creation")
+    @Tag("development")
+    @DisplayName("Duplicate creation of an account account throws an exception")
+    void Should_Throw_Already_Exists_Exception() throws Exception {
+        mockMvc.perform(post("/accounts/")
+                .content(exampleUserOne)
+                .accept(MEDIA_TYPE_JSON_UTF8)
+                .contentType(MEDIA_TYPE_JSON_UTF8))
+                .andExpect(status().isForbidden())
+                .andExpect(content().contentType(MEDIA_TYPE_JSON_UTF8))
+                .andExpect(content().string("Customer already has an Account!"))
+        ;
+
+    }
+
+
 }
