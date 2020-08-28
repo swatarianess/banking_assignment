@@ -24,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-
 class TransactionRegistrationControllerTest {
     MediaType MEDIA_TYPE_JSON_UTF8 = new MediaType("application", "json", StandardCharsets.UTF_8);
     String exampleTransaction  = "{\"recipientCustomerID\": 1,  \"senderCustomerID\": 2, \"amount\": 100}";
@@ -99,4 +98,58 @@ class TransactionRegistrationControllerTest {
                 .andExpect(jsonPath("$.*", hasSize(greaterThanOrEqualTo(2))));
 
     }
+
+    @Test
+    @Tag("retrieval")
+    @DisplayName("Fails to retrieve a transaction if the transactionID does not exist")
+    void failToRetrieveNonExistingTransaction() throws Exception {
+        mockMvc.perform(post("/transactions/")
+                .content(exampleTransaction)
+                .accept(MEDIA_TYPE_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MEDIA_TYPE_JSON_UTF8))
+                .andExpect(jsonPath("$.recipientCustomerID").value(1))
+                .andExpect(jsonPath("$.senderCustomerID").value(2))
+                .andExpect(jsonPath("$.amount").value(100))
+                .andExpect(jsonPath("$.registrationStatus").value("Success"))
+        ;
+
+        mockMvc.perform(get("/transactions/12")
+                .accept(MEDIA_TYPE_JSON_UTF8))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MEDIA_TYPE_JSON_UTF8))
+                .andExpect(content().string("Transaction not found!"))
+        ;
+
+    }
+
+    @Test
+    @Tag("retrieval")
+    @DisplayName("Find first transaction received by a recipientCustomerID")
+    void findTransactionFromSpecificAccount() throws Exception {
+        mockMvc.perform(post("/transactions/")
+                .content(exampleTransaction2)
+                .accept(MEDIA_TYPE_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MEDIA_TYPE_JSON_UTF8))
+                .andExpect(jsonPath("$.recipientCustomerID").value(2))
+                .andExpect(jsonPath("$.senderCustomerID").value(3))
+                .andExpect(jsonPath("$.amount").value(1000))
+                .andExpect(jsonPath("$.registrationStatus").value("Success"))
+        ;
+
+        mockMvc.perform(get("/transactions/user/2")
+                .accept(MEDIA_TYPE_JSON_UTF8))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MEDIA_TYPE_JSON_UTF8))
+                .andExpect(jsonPath("$[0].recipientCustomerID").value(2))
+        ;
+
+    }
+
 }

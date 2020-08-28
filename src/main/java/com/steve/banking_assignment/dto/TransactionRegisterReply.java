@@ -9,7 +9,6 @@ import java.sql.Timestamp;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 public class TransactionRegisterReply {
     long transactionID;

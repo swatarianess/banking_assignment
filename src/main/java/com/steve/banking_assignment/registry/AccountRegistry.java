@@ -27,10 +27,6 @@ public class AccountRegistry {
         return accounts.add(account);
     }
 
-    public boolean deleteAccount(long customerID){
-        return accounts.removeIf(account -> account.getCustomerID() == customerID);
-    }
-
     public List<Account> getAccountRecords(){
         LogFactory.getFactory().getInstance(this.getClass().getSimpleName()).info(MessageFormat.format("Getting accounts ({0}): {1} ", accounts.size(), accounts));
         return new ArrayList<>(accounts);
