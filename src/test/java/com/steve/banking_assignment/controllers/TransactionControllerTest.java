@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class TransactionRegistrationControllerTest {
+class TransactionControllerTest {
     MediaType MEDIA_TYPE_JSON_UTF8 = new MediaType("application", "json", StandardCharsets.UTF_8);
     String exampleTransaction  = "{\"recipientCustomerID\": 1,  \"senderCustomerID\": 2, \"amount\": 100}";
     String exampleTransaction2 = "{\"recipientCustomerID\": 2,  \"senderCustomerID\": 3, \"amount\": 1000}";
@@ -44,7 +44,7 @@ class TransactionRegistrationControllerTest {
     @Tag("transaction")
     @Tag("creation")
     @DisplayName("Creation of account with default initial credit")
-    void registerTransaction() throws Exception {
+    void Should_Successfully_Register_Transaction() throws Exception {
 
         mockMvc.perform(post("/transactions/")
                 .content(exampleTransaction)
@@ -63,7 +63,7 @@ class TransactionRegistrationControllerTest {
     @Test
     @Tag("retrieval")
     @DisplayName("Generating and testing all transactions are stored correctly")
-    void getAllTransactions() throws Exception {
+    void Should_Get_All_Transactions() throws Exception {
         mockMvc.perform(post("/transactions/")
                 .content(exampleTransaction)
                 .accept(MEDIA_TYPE_JSON_UTF8)
@@ -102,7 +102,7 @@ class TransactionRegistrationControllerTest {
     @Test
     @Tag("retrieval")
     @DisplayName("Fails to retrieve a transaction if the transactionID does not exist")
-    void failToRetrieveNonExistingTransaction() throws Exception {
+    void Should_Fail_To_Retrieve_Non_Existing_Transaction() throws Exception {
         mockMvc.perform(post("/transactions/")
                 .content(exampleTransaction)
                 .accept(MEDIA_TYPE_JSON_UTF8)
@@ -116,7 +116,7 @@ class TransactionRegistrationControllerTest {
                 .andExpect(jsonPath("$.registrationStatus").value("Success"))
         ;
 
-        mockMvc.perform(get("/transactions/12")
+        mockMvc.perform(get("/transactions/999999999")
                 .accept(MEDIA_TYPE_JSON_UTF8))
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType(MEDIA_TYPE_JSON_UTF8))
@@ -128,7 +128,7 @@ class TransactionRegistrationControllerTest {
     @Test
     @Tag("retrieval")
     @DisplayName("Find first transaction received by a recipientCustomerID")
-    void findTransactionFromSpecificAccount() throws Exception {
+    void Should_Find_Transaction_From_Specific_Account_ID() throws Exception {
         mockMvc.perform(post("/transactions/")
                 .content(exampleTransaction2)
                 .accept(MEDIA_TYPE_JSON_UTF8)
@@ -147,7 +147,7 @@ class TransactionRegistrationControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MEDIA_TYPE_JSON_UTF8))
-                .andExpect(jsonPath("$[0].recipientCustomerID").value(2))
+                .andExpect(jsonPath("$[0].recipientCustomerID").value(1))
         ;
 
     }
