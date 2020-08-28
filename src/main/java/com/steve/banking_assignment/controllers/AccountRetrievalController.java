@@ -18,14 +18,14 @@ public class AccountRetrievalController {
     @Autowired
     private AccountService accountService;
 
-    @GetMapping(value = "/account/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/accounts/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Account>> getAllAccounts() {
         return new ResponseEntity<>(accountService.findAllAccounts(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/account/{userID}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/accounts/{userID}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Account> getAccountFromUserId(@PathVariable long userID) {
-        return new ResponseEntity<>(accountService.findAccountByID(userID).orElse(null), HttpStatus.OK);
+        return new ResponseEntity<>(accountService.findAccountByID(userID), HttpStatus.OK);
     }
 
 }
