@@ -34,10 +34,6 @@ jobs:
 
       - run: gradle dependencies
 
-      - run:
-          name: Analyze on SonarCloud
-          command: gradle build sonarqube
-
       - save_cache:
           paths:
             - ~/.gradle
@@ -59,9 +55,3 @@ jobs:
 
       - store_artifacts:
           path: ~/test-results/junit
-
-workflows:
-  main:
-    jobs:
-      - build:
-          context: SonarCloud
