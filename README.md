@@ -3,17 +3,48 @@
 
 Example of a banking web-application using spring-boot.
 
-## How to use:
-Create a new customer:
-`localhost:8083\customer\register`
-* parameters:
+# Requirements:
+* Gradle
+* Java 8+
+
+# How to Setup:
+To start the Spring-boot server run the command in terminal/console:
+<pre><code> ./gradlew bootRun </code></pre>
+
+# How to interact with the application:
+## Accounts
+**Create a new account:**
+
+POST-Request ~ `localhost:8083\accounts\`
+* json file elements:
   * `accountID` (Required) - The customerID to open with the new account
   * `name` (Required) - First name of the customer
   * `surname` (optional) - Surname of the customer
   * `balance` (optional) - Initial opening balance of the customer
 
-Retrieving customer information:
-`localhost:8083\customer\{customerID}`
+Retrieving Account information:
 
+GET-Request ~ `localhost:8083\accounts\`
+* parameters:
+  * `accountID` (Required) - The customerID of the account holder
+  
 Retrieving all customers:
-`localhost:8083\customer\all`
+GET-Request ~ `localhost:8083\accounts\`
+
+## Transactions
+Create a new transaction:
+
+POST-Request  ~ `localhost:8083\transactions\`
+* json file elements:
+  * `accountID` (Required) - The customerID to open with the new account
+  * `name` (Required) - First name of the customer
+  * `surname` (optional) - Surname of the customer
+  * `balance` (optional) - Initial opening balance of the customer
+
+**Retrieving transaction information:**
+GET-Request  ~ `localhost:8083\transactions\{transactionID}`
+* parameters:
+  * `accountID` (Required) - The customerID of the account holder
+  
+**Retrieving all transactions:**
+GET-Request ~ `localhost:8083\transactions\`
