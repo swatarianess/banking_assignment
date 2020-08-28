@@ -96,10 +96,6 @@ public class Account {
         return transactionList;
     }
 
-    public void setTransactionList(List<Transaction> transactionList) {
-        this.transactionList = transactionList;
-    }
-
     public String getSurname() {
         return surname;
     }
