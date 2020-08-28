@@ -1,6 +1,5 @@
-package com.steve.banking_assignment;
+package com.steve.banking_assignment.controllers;
 
-import com.steve.banking_assignment.controllers.AccountRegistrationController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
