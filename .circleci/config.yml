@@ -36,7 +36,7 @@ jobs:
 
       - run:
           name: Analyze on SonarCloud
-          command: gradle build sonarqube"
+          command: gradle build sonarqube
 
       - save_cache:
           paths:
