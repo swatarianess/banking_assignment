@@ -37,8 +37,6 @@ jobs:
 
       - run: gradle dependencies
 
-      - codecov/upload:
-          file: 'build/reports/jacoco/test/jacocoTestReport.xml'
 
       - save_cache:
           paths:
@@ -62,3 +60,6 @@ jobs:
       - store_artifacts:
           path: ~/test-results/junit
 
+      - codecov/upload:
+          file: 'build/reports/jacoco/test/jacocoTestReport.xml'
+          when: always
