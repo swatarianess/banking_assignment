@@ -1,4 +1,6 @@
-# Banking Assignment [![Build Status](https://travis-ci.com/swatarianess/banking_assignment.svg?branch=master)](https://travis-ci.com/swatarianess/banking_assignment)[![codecov](https://codecov.io/gh/swatarianess/banking_assignment/branch/master/graph/badge.svg)](https://codecov.io/gh/swatarianess/banking_assignment)[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=swatarianess_banking_assignment&metric=alert_status)](https://sonarcloud.io/dashboard?id=swatarianess_banking_assignment)
+# Banking Assignment
+
+[![Build Status](https://travis-ci.com/swatarianess/banking_assignment.svg?branch=master)](https://travis-ci.com/swatarianess/banking_assignment)[![codecov](https://codecov.io/gh/swatarianess/banking_assignment/branch/master/graph/badge.svg)](https://codecov.io/gh/swatarianess/banking_assignment)[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=swatarianess_banking_assignment&metric=alert_status)](https://sonarcloud.io/dashboard?id=swatarianess_banking_assignment)
 
 
 Example of a banking web-application using spring-boot.
@@ -21,18 +23,24 @@ POST-Request ~ `localhost:8083\accounts\`
   * `name` (Required) - First name of the customer
   * `surname` (optional) - Surname of the customer
   * `balance` (optional) - Initial opening balance of the customer
+* returns:
+  * format: json
 
-Retrieving Account information:
+**Retrieving Account information:**
 
-GET-Request ~ `localhost:8083\accounts\`
+GET-Request ~ `localhost:8083\accounts\{customerID}`
 * parameters:
-  * `accountID` (Required) - The customerID of the account holder
+  * `customerID` (Required) - The customerID of the account holder
+* returns:
+  * format: json
   
-Retrieving all customers:
+**Retrieving all customers:**
 GET-Request ~ `localhost:8083\accounts\`
+* returns:
+  * format: json
 
 ## Transactions
-Create a new transaction:
+**Create a new transaction:**
 
 POST-Request  ~ `localhost:8083\transactions\`
 * json file elements:
@@ -40,11 +48,19 @@ POST-Request  ~ `localhost:8083\transactions\`
   * `name` (Required) - First name of the customer
   * `surname` (optional) - Surname of the customer
   * `balance` (optional) - Initial opening balance of the customer
+* returns:
+  * format: json
 
 **Retrieving transaction information:**
+
 GET-Request  ~ `localhost:8083\transactions\{transactionID}`
 * parameters:
   * `accountID` (Required) - The customerID of the account holder
+* returns:
+  * format: json
   
 **Retrieving all transactions:**
+
 GET-Request ~ `localhost:8083\transactions\`
+* returns:
+  * format: json
